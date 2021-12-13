@@ -35,14 +35,16 @@ export namespace DeepCopy {
     const sourceType = typeof source;
     const isArray = Array.isArray(source);
     const newArr: T[] = [];
-    const newObj: Record<string, unknown> = {};
+    const newObj: Record<any, unknown> = {};
 
-    if (sourceType !== 'object') return source;
+      if (sourceType !== 'object') return source;
+      
+      const copy = source as T[]
 
     if (isArray) {
-      for (let key in source) {
-        const current = source[key];
-        newArr[key] = deepCopy(current);
+      for (let i = 0; i < copy.length; i++) {
+        const current = copy[i];
+        newArr[i] = deepCopy(current);
       }
     } else if (sourceType === 'object' && !isArray) {
       for (let key in source) {
