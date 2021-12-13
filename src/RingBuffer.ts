@@ -11,18 +11,24 @@
  *
  * The ordering of the push operations must be kept.
  */
-class RingBuffer<T> {
+export class RingBuffer<T> {
   valueArr: T[] = [];
   capacity: number;
+  newArrCopy: T[] = [];
+
   constructor(capacity: number) {
     this.capacity = capacity;
   }
 
   public push(value: T) {
-    this.valueArr = [...this.valueArr, value];
-    if (this.valueArr.length > this.capacity) {
-      this.valueArr.splice(1);
-    }
+    // this.valueArr = [...this.valueArr, value];
+
+    if (this.valueArr.length > this.capacity - 1) {
+      let copyArr: T[] = [];
+      copyArr = [...this.valueArr, value];
+      const newData = copyArr.splice(1);
+      this.valueArr = newData;
+    } else this.valueArr.push(value);
     return this.valueArr;
   }
 
@@ -34,7 +40,7 @@ class RingBuffer<T> {
 
   public pop(): T | undefined {
     // not implemented
-    const value = this.valueArr.splice(this.valueArr.length - 2, 1);
-    return value[0];
+    const value = this.valueArr.splice(this.valueArr.length - 1, 1);
+    return value.length ? value[0] : undefined;
   }
 }
