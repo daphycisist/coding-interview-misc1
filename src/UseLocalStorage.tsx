@@ -27,24 +27,25 @@ import React from 'react';
  * @param key The key should be the key used by localStorage
  * @param initialValue The initial value to store for the first value.
  */
-export function useLocalStorageState<V>(key: string, initialValue: V): [V, (newValue: V) => void] {
+export function useLocalStorageState<V>(
+  key: string,
+  initialValue: V
+): [V, (newValue: V) => void] {
+  // TODO: implement this code - this just returns 'any' which would not be usable.
 
-    // TODO: implement this code - this just returns 'any' which would not be usable.
-
-    return [] as any;
-
+  return [] as any;
 }
 
 export const RememberPassword = () => {
+  // TODO: change this to use useLocalStorageState
+  const [value, setValue] = React.useState('off');
+  // const [value, setValue] = useLocalStorageState('remember-password', 'off');
 
-    // TODO: change this to use useLocalStorageState
-    const [value, setValue] = React.useState('off');
-    // const [value, setValue] = useLocalStorageState('remember-password', 'off');
-
-    return (
-        <input type="checkbox"
-               value={value}
-               onChange={event => setValue(event.currentTarget.value)}/>
-    );
-
-}
+  return (
+    <input
+      type="checkbox"
+      value={value}
+      onChange={(event) => setValue(event.currentTarget.value)}
+    />
+  );
+};

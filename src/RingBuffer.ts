@@ -12,22 +12,29 @@
  * The ordering of the push operations must be kept.
  */
 class RingBuffer<T> {
+  valueArr: T[] = [];
+  capacity: number;
+  constructor(capacity: number) {
+    this.capacity = capacity;
+  }
 
-    constructor(capacity: number) {
+  public push(value: T) {
+    this.valueArr = [...this.valueArr, value];
+    if (this.valueArr.length > this.capacity) {
+      this.valueArr.splice(1);
     }
+    return this.valueArr;
+  }
 
-    public push(value: T) {
+  public peek(): T | undefined {
+    // not implemented
+    const value = this.valueArr[this.valueArr.length - 1];
+    return value;
+  }
 
-    }
-
-    public peek(): T | undefined {
-        // not implemented
-        return undefined;
-    }
-
-    public pop(): T | undefined {
-        // not implemented
-        return undefined;
-    }
-
+  public pop(): T | undefined {
+    // not implemented
+    const value = this.valueArr.splice(this.valueArr.length - 2, 1);
+    return value[0];
+  }
 }
